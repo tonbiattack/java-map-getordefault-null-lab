@@ -2,6 +2,7 @@ package jp.tonbiattack.debuglab.region;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * テナントごとのリージョン上書きと、GLOBAL既定値を解決します。
@@ -19,7 +20,7 @@ public class TenantRegionResolver {
     }
 
     public String resolve(String tenantId) {
-        String resolved = regions.getOrDefault(tenantId, GLOBAL);
+        String resolved = Objects.requireNonNullElse(regions.get(tenantId), GLOBAL);
         if (GLOBAL.equals(resolved)) {
             globalFallbackCount++;
         }
